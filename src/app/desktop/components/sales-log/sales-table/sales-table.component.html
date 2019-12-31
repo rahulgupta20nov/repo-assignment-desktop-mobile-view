@@ -1,0 +1,103 @@
+<table matSort (matSortChange)="sortData($event)" matSortActive="date" matSortDirection="asc" matSortDisableClear>
+  <tr class="row table-head">
+    <th mat-sort-header="date" class="col-md-1">Date</th>
+    <th mat-sort-header="entityName" class="col-md-2">Entity Name</th>
+    <th class="col-md-1 task-type">
+      <div>Task Type</div> 
+      <button mat-icon-button [matMenuTriggerFor]="filterListMenu" (click)="$event.stopPropagation()">
+        <mat-icon>filter_list</mat-icon>
+      </button>
+      <mat-menu #filterListMenu="matMenu" (closed)="closedFilterMenu()">
+        <div class="menu-header" (click)="$event.stopPropagation()">TASK TYPE</div>
+        <mat-divider></mat-divider>
+        <button mat-menu-item *ngFor="let type of taskTypes;" (click)="$event.stopPropagation()">
+          <mat-checkbox color="primary" [(ngModel)]="type.checked">
+            <mat-icon>{{type.icon}}</mat-icon>
+            <span>{{type.name}}</span>
+          </mat-checkbox>
+        </button>
+      </mat-menu>
+    </th>
+    <th mat-sort-header="time" class="col-md-1">Time</th>
+    <th mat-sort-header="contactPerson" class="col-md-2">Contact Person</th>
+    <th mat-sort-header="note" class="col-md-3">Notes</th>
+    <th mat-sort-header="taskStatus" class="col-md-1">
+      <div>Status</div>
+      <button mat-icon-button [matMenuTriggerFor]="filterStatusMenu" (click)="$event.stopPropagation()">
+        <mat-icon>filter_list</mat-icon>
+      </button>
+      <mat-menu #filterStatusMenu="matMenu" (closed)="closedFilterMenu()">
+        <div class="menu-header" (click)="$event.stopPropagation()">TASK STATUS</div>
+        <mat-divider></mat-divider>
+        <button mat-menu-item *ngFor="let status of taskStatus;" (click)="$event.stopPropagation()">
+          <mat-checkbox color="primary" [(ngModel)]="status.checked">
+            <span>{{status.name}}</span>
+          </mat-checkbox>
+        </button>
+      </mat-menu>
+    </th>
+    <th class="col-md-1"></th>
+  </tr>
+
+  <tr *ngFor="let log of sortedData; let i = index;" class="row table-row">
+    <div class="grouped-date row" *ngIf="(sort.active === 'date') && isShowGroupedDate(i)">
+      <div class="col-md-3 nopadding">
+        <span>{{getDate(log.date) | date: 'dd MMM yyyy'}}</span>
+        <span class="distance-date">{{log.date | distanceDate}} </span>
+        <span class="status-count">{{getStatusCount(log.date) + ' Open'}}</span>
+      </div>
+      <div class="col-md-9 divider"></div>
+    </div>
+    <td class="col-md-1">{{getDate(log.date) | date: 'dd/MM/yyyy'}}</td>
+    <td class="col-md-2 entity-name">{{log.entityName}}</td>
+    <td class="col-md-1 nopadding task-type">
+      <mat-icon>{{log.icon}}</mat-icon>
+      {{log.taskType | titlecase}}
+    </td>
+    <td class="col-md-1">{{getDate(log.date) | date: 'hh:mm a '}}</td>
+    <td class="col-md-2">{{log.contactPerson | titlecase}}</td>
+    <td class="col-md-3 text-ellipsis">
+      {{log.note}}
+      <button mat-raised-button *ngIf="!log.note">
+        <mat-icon class="add-task-icon" color="primary">add_circle_outline</mat-icon>
+        Add Note
+      </button>
+    </td>
+    <td class="col-md-1 task-status" [ngClass]="{'open-status': log.taskStatus === 'open', 'closed-status': log.taskStatus === 'closed'}">
+      <span [matMenuTriggerFor]="statusMenu">
+        {{log.taskStatus | titlecase}}
+      </span>
+      <mat-menu #statusMenu="matMenu" class="task-status-menu" xPosition="before">
+        <div class="menu-header elem-padding" (click)="$event.stopPropagation();">STATUS</div>
+        <div class="elem-padding">
+          <mat-button-toggle-group class="row toggle-group" aria-label="Font Style"
+          #group="matButtonToggleGroup" [value]="log.taskStatus" (click)="$event.stopPropagation();">
+            <mat-button-toggle class="col-md-6" value="open" 
+            [ngClass]="{'open-status': log.taskStatus ==='open'}"
+            [disabled]="log.taskStatus === 'closed'">Open</mat-button-toggle>
+            <mat-button-toggle class="col-md-6" value="closed" [ngClass]="{'close-status': log.taskStatus ==='closed'}" (click)="changeStatus('closed', i)">Closed</mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+        <div class="open-new-task" *ngIf="log.taskStatus ==='closed'">
+          <div class="header">Create next task for</div>
+          <div class="row body" (click)="createNewTask(i)">
+            <div class="col-md-10">{{log.entityName | titlecase}}</div>
+            <mat-icon class="col-md-2">keyboard_arrow_right</mat-icon>
+          </div>
+        </div>
+      </mat-menu>
+    </td>
+    <td class="col-md-1 options-menu nopadding">
+      <button mat-stroked-button [matMenuTriggerFor]="menu">
+        Options <mat-icon>keyboard_arrow_down</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+        <div class="menu-header">OPTIONS</div>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="editLog(i)" [disabled]="log.taskStatus !== 'open'">Edit</button>
+        <button mat-menu-item (click)="createDuplicateLog(i)">Duplicate</button>
+        <button mat-menu-item (click)="changeStatus('closed', i)" [disabled]="log.taskStatus !== 'open'">Change status to Closed</button>
+      </mat-menu>
+    </td>
+  </tr>
+</table>

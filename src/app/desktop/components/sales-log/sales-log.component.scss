@@ -1,0 +1,35 @@
+@import './../../../../variable';
+
+.sales-card {
+  padding: 0;
+  .card-container {
+    padding: 30px 20px;
+    &.card-header {
+      background-color: $body-background;
+    }
+
+    .add-task-icon {
+      margin-right: 10px;
+      font-size: x-large;
+    }
+
+    .mat-card-title {
+      margin-top: 12px;
+    }
+  }
+  .filter-list {
+    height: 60px;
+    mat-icon {
+      font-size: 16px;
+      position: relative;
+      top: 4px;
+      left: 3px;
+    }
+    .mat-standard-chip {
+      border-radius: 0;
+      mat-icon {
+        left: 10px;
+      }
+    }
+  }
+}

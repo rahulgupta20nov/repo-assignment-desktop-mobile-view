@@ -1,0 +1,83 @@
+<div class="modal-wrap">
+  <form (ngSubmit)="onSave()" [formGroup]="salesLogForm">
+    <div class="row header">
+      <h3 class="col-md-6">{{ this.data ? 'EDIT' : 'NEW' }} TASK</h3>
+      <mat-button-toggle-group class="col-md-6 row nopadding task-status" formControlName="taskStatus"
+        aria-label="Font Style" #group="matButtonToggleGroup">
+        <mat-button-toggle class="col-md-6" value="open">Open</mat-button-toggle>
+        <mat-button-toggle class="col-md-6" value="closed">Closed</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+    <div class="row">
+
+      <mat-form-field class="col-md-12" appearance="fill">
+        <mat-label>Entity Name</mat-label>
+        <input matInput placeholder="Entity Name" formControlName="entityName" required cdkFocusInitial>
+      </mat-form-field>
+
+      <mat-form-field class="col-md-5" appearance="fill">
+        <mat-label>Date</mat-label>
+        <input matInput [matDatepicker]="picker" placeholder="Date" formControlName="date" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <div class="col-md-7" formGroupName="time">
+        <mat-form-field class="time-picker" appearance="fill">
+          <mat-label>Time</mat-label>
+          <mat-select formControlName="hour" required>
+            <mat-option *ngFor="let hour of hours" [value]="hour">
+              {{hour}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="time-picker" appearance="fill">
+          <mat-select formControlName="minute">
+            <mat-option *ngFor="let minute of minutes" [value]="minute">
+              {{minute}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="time-picker meridian" appearance="fill">
+          <mat-select formControlName="meridian">
+            <mat-option *ngFor="let meridian of meridians" [value]="meridian">
+              {{meridian}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <mat-form-field class="col-md-12" appearance="outline">
+        <mat-label>Task Type</mat-label>
+        <mat-select formControlName="taskType" required>
+          <mat-select-trigger>
+            {{salesLogForm.value.taskType}}
+          </mat-select-trigger>
+          <mat-option *ngFor="let type of taskTypes" [value]="type.id">
+            <mat-icon>{{type.icon}}</mat-icon>{{type.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="col-md-12" appearance="fill">
+        <mat-label>Phone number</mat-label>
+        <input matInput placeholder="Phone number" formControlName="contact" required>
+      </mat-form-field>
+
+      <mat-form-field class="col-md-12" appearance="fill">
+        <mat-label>Contact Person</mat-label>
+        <input matInput placeholder="Contact Person" formControlName="contactPerson" required>
+      </mat-form-field>
+
+      <mat-form-field class="col-md-12" appearance="fill">
+        <mat-label>Notes (optional)</mat-label>
+        <textarea matInput placeholder="Notes (optional)" formControlName="note" rows="3"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="btn-actions full-width">
+      <div>
+        <button type="button" mat-button color="basic" (click)="onClose()">Cancel</button>
+        <button mat-raised-button mat-button color="primary" type="submit">Save</button>
+      </div>
+    </div>
+  </form>
+</div>

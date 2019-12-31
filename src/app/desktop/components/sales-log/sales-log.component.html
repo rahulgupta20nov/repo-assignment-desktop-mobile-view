@@ -1,0 +1,29 @@
+<div class="container wrapper"> 
+  <mat-card class="sales-card">
+    <mat-card-header class="card-container card-header">
+      <mat-card-title>SALES LOG</mat-card-title>
+      <button mat-stroked-button (click)="openDialog()">
+        <mat-icon class="add-task-icon" color="primary">add_circle_outline</mat-icon>
+        New Task
+      </button>
+    </mat-card-header>
+  
+    <mat-card-content class="card-container">
+      <div class="filter-list">
+        <span *ngIf="!filterArray || !filterArray.length; else filters">Use the <mat-icon>filter_list</mat-icon> icon need to be table title to apply filter.</span>
+        <ng-template #filters>
+          <mat-chip-list>
+            <mat-chip *ngFor="let filter of filterArray;let i = index;">
+              <div class="column">
+                <div>{{filter.type | titlecase}}</div>
+                <div>{{filter.name | titlecase}}</div>
+              </div>
+              <mat-icon (click)="clearFilter(i)">close</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+        </ng-template>
+      </div>
+      <app-sales-table [salesLog]="salesLogs" *ngIf="salesLogs.length" (filteredArray)='getFilteredArray($event)' #salesTable></app-sales-table>
+    </mat-card-content>
+  </mat-card>  
+</div>

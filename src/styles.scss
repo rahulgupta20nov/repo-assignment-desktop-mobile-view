@@ -1,1 +1,71 @@
 /* You can add global styles to this file, and also import other style files */
+@import './variable';
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: $body-background; }
+// .row {
+//   margin-right: 0 !important;
+//   margin-left: 0 !important;
+// }
+
+
+.nopadding {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+  line-height: 40px !important;
+}
+
+.mat-card-header-text {
+  margin: 0 16px 0 0  !important;
+}
+
+.cdk-overlay-pane {
+  .mat-menu-content:not(:empty) {
+    padding-bottom: 0;
+  }
+  .mat-menu-panel {
+    &.task-status-menu {
+      width: 280px;
+      padding: 0;
+      .elem-padding {
+        padding: 0px 20px;
+      }
+
+      .toggle-group {
+        margin: auto; 
+        width: 100%;
+        margin-bottom: 20px;
+      }
+  
+      .open-status {
+        background-color: $open-status-color;
+        color: $white;
+      }
+  
+      .close-status {
+        background-color: $close-status-color;
+        color: $white;
+      }
+    }
+    .open-new-task {
+      width: 100%;
+      height: 100px;
+      background-color: green;
+      color: $white;
+      padding: 30px 20px 0;
+      line-height: 20px;
+      .header {
+        font-weight: 500;
+      }
+      .body {
+        cursor: pointer;
+      }
+    }
+  }
+}

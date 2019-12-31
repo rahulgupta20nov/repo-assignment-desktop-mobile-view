@@ -1,0 +1,118 @@
+@import './../../../../../variable.scss';
+
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+table th {
+  text-align: left;
+}
+
+.text-ellipsis {
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+table {
+  .table-head {
+    color: $grey-font-color;
+    th:hover {
+      color: $black-font-color;
+    }
+    .task-type {
+      padding-left: 0;
+      padding-right: 0;
+      display: flex;
+    }
+    mat-icon {
+      font-size: 15px;
+      padding-left: 6px;
+    }
+    .task-status {
+      padding-top: 4px;
+    }
+  }
+
+  .table-row {
+    margin: 15px -15px;
+    margin-top: 5px;
+
+    .entity-name {
+      color: $close-status-color;
+    }
+
+    .task-type {
+      mat-icon {
+        font-size: 15px;
+      }
+    }
+
+    .task-status {
+      cursor: pointer;
+
+      span {
+        border-bottom: 1px dotted;
+      }
+      &.open-status {
+        color: $open-status-color;
+      }
+  
+      &.closed-status {
+        color: $close-status-color;
+      }
+    }
+
+    .grouped-date {
+      width: 100%;
+      margin: 0 15px 15px;
+      font-size: 10px;
+      font-weight: 600;
+
+      .distance-date,
+      .status-count {
+        color: $grey-font-color;
+        font-weight: 500;
+      }
+
+      .divider {
+        border-top: 1px solid $divider;
+        margin-top: 4px;
+      }
+
+      span {
+        margin-right: 10px;
+      }
+    }
+    .options-menu {
+      margin-top: -7px;
+      button.mat-stroked-button {
+        padding: 0 0 0 5px;
+        line-height: 10px;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.menu-header {
+  outline: 0;
+  border: none;
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  line-height: 48px;
+  height: 48px;
+  padding: 0 16px;
+  text-align: left;
+  text-decoration: none;
+  max-width: 100%;
+  position: relative;
+}

@@ -1,0 +1,31 @@
+.mat-button-toggle-checked {
+  background-color: #f37f37;
+  color: #ffffff;
+}
+
+.header {
+  h3 {
+    font-weight: 500;
+    margin: 10px 0;
+  }
+  margin-bottom: 10px;
+}
+
+.time-picker {
+  width: 60px;
+  margin-right: 2px;
+  &.meridian {
+    width: 70px;
+  }
+}
+
+.task-status {
+  height: 40px;
+}
+
+.btn-actions {
+  text-align: right;
+  button {
+    margin-left: 10px;
+  }
+}
